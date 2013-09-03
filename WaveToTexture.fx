@@ -1,7 +1,7 @@
 struct WaveData
 {
-	float3 hsv;
-	float3 pHsv;
+	float4 hsv;
+	float4 pHsv;
 };
 
 StructuredBuffer<WaveData> Input;
@@ -70,8 +70,12 @@ float4 PS(vs2ps In): SV_Target
 	float x = floor(In.TexCd.x * Size.x);
 	float y = floor(In.TexCd.y * Size.y);
 	
-	float3 hsv = Input[x + y * Size.x].hsv;
-	return HSVtoRGB(hsv);
+	float4 hsv = Input[x + y * Size.x].hsv;
+	
+	float4 col = HSVtoRGB(hsv.xyz);
+	col.a = hsv.a;
+	
+	return col;
 }
 
 technique10 Constant

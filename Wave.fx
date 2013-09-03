@@ -9,13 +9,13 @@ float Decay = 0.95;
 
 struct WaveData
 {
-	float3 hsv;
-	float3 pHsv;
+	float4 hsv;
+	float4 pHsv;
 };
 
 RWStructuredBuffer<WaveData> Output : BACKBUFFER;
 
-float3 SampleData(float2 xy, float2 offsetXY)
+float4 SampleData(float2 xy, float2 offsetXY)
 {
 	float2 sampleXY = xy + offsetXY;
 	sampleXY.x = max(0, min(sampleXY.x, Size.x - 1));
@@ -74,7 +74,7 @@ void MainCS( uint3 DTid : SV_DispatchThreadID )
 	
 	WaveData data = Output[DTid.x];
 	
-	float3 hsv = data.hsv;
+	float4 hsv = data.hsv;
 	for (int i = 0; i < Count; i++)
 	{
 		float dist = distance(float2(x, y), PointXY[i]);
@@ -82,22 +82,22 @@ void MainCS( uint3 DTid : SV_DispatchThreadID )
 		//hsv = dist <= 0.01 ? PointHSV[i] : hsv * 0.999;
 		if(dist <= 0.01)
 		{
-			hsv = PointHSV[i];
+			hsv = float4(PointHSV[i], 1);
 		}
 		else
 		{
-			hsv = float3(hsv.x, hsv.y, hsv.z * 0.999);
+			hsv = float4(hsv.x, hsv.y, hsv.z * 0.999, hsv.z * 0.999);
 		}
 		
 	}
 	
-	float3 a = SampleData(pixelPoint, float2(-1, 0));
-	float3 b = SampleData(pixelPoint, float2(+1, 0));
-	float3 c = SampleData(pixelPoint, float2(0, -1));
-	float3 d = SampleData(pixelPoint, float2(0, +1));
+	float4 a = SampleData(pixelPoint, float2(-1, 0));
+	float4 b = SampleData(pixelPoint, float2(+1, 0));
+	float4 c = SampleData(pixelPoint, float2(0, -1));
+	float4 d = SampleData(pixelPoint, float2(0, +1));
 	
-	float3 average = a + b + c + d;
-    average /= 4;
+//	float4 average = a + b + c + d;
+//    average /= 4;
 	
 //	float2 vecA = float2(cos(radians(a.x * 360)), sin(radians(a.x * 360)));
 //	float2 vecB = float2(cos(radians(b.x * 360)), sin(radians(b.x * 360)));
@@ -114,20 +114,24 @@ void MainCS( uint3 DTid : SV_DispatchThreadID )
 	
 	//p = p_lastframe + (v_lastframe + (attack * (p_left + p_right + p_top + p_bottom - 4*p_lastframe))) * slowdown
 	float resultV = hsv.z + ((hsv.z - data.pHsv.z) + Attack * (a.z + b.z + c.z + d.z - 4 * hsv.z)) * Decay;
+	resultV = saturate(resultV);
+	
 	if(Count == 0) resultV *= 0.999;
 	
-	float3 color = HSVtoRGB(hsv).xyz;
-	float3 colorA = HSVtoRGB(a).xyz;
-	float3 colorB = HSVtoRGB(b).xyz;
-	float3 colorC = HSVtoRGB(c).xyz;
-	float3 colorD = HSVtoRGB(d).xyz;
+	float4 color = HSVtoRGB(hsv.xyz);
+	float4 colorA = HSVtoRGB(a.xyz);
+	float4 colorB = HSVtoRGB(b.xyz);
+	float4 colorC = HSVtoRGB(c.xyz);
+	float4 colorD = HSVtoRGB(d.xyz);
 	
-	float3 averageColor = (color * 2 + colorA + colorB + colorC + colorD) / 6;
+	float4 averageColor = (color * 2 + colorA + colorB + colorC + colorD) / 6;
 	
-	averageColor = RGBtoHSV(averageColor).xyz;
+	averageColor = RGBtoHSV(averageColor.xyz);
+	
+	
 	
 	Output[DTid.x].pHsv = Output[DTid.x].hsv;
-	Output[DTid.x].hsv = float3(averageColor.x, averageColor.y, saturate(resultV));
+	Output[DTid.x].hsv = float4(averageColor.x, averageColor.y, resultV, resultV);
 }
 
 

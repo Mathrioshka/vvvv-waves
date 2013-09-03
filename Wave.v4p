@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta30.2.dtd" >
    <PATCH nodename="D:\Dropbox\Git Repos\waves\Wave.v4p" systemname="Wave" filename="D:\Dropbox\Git Repos\waves\Wave.v4p">
-   <BOUNDS type="Window" left="1545" top="1470" width="9000" height="8805">
+   <BOUNDS type="Window" left="2655" top="2805" width="9000" height="8805">
    </BOUNDS>
    <NODE systemname="Wave (DX11.Effect)" filename="Wave.fx" nodename="Wave (DX11.Effect)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2370" top="5940" width="100" height="100">
@@ -81,7 +81,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2700" top="6465" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="24">
+   <PIN pinname="Y Input Value" slicecount="1" values="32">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -377,7 +377,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6405" top="5070" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.95">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.93">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -413,7 +413,7 @@
    </BOUNDS>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="2" values="0.63,0.33">
+   <PIN pinname="Y Input Value" slicecount="2" values="0.14,0.91">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="2">
    </PIN>

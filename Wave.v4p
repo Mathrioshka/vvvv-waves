@@ -27,7 +27,7 @@
    <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="2055" top="7170" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Layer" visible="1">
+   <PIN pinname="Layer" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Element Count" visible="1">
    </PIN>
@@ -38,8 +38,6 @@
    <PIN pinname="Reset Counter Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Layer" dstnodeid="2" dstpinname="Layer">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="3" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="5655" top="3555" width="0" height="0">
    </BOUNDS>
@@ -327,11 +325,11 @@
    </PIN>
    <PIN pinname="Saturation" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Value" visible="1">
+   <PIN pinname="Value" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Hue" visible="1" slicecount="2" values="0.333333333333333">
    </PIN>
-   <PIN pinname="Alpha" slicecount="1" values="0.77">
+   <PIN pinname="Alpha" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="43" srcpinname="Output" dstnodeid="14" dstpinname="Input">
@@ -351,21 +349,21 @@
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Period" slicecount="1" values="1">
+   <PIN pinname="Period" slicecount="1" values="0.21">
    </PIN>
    <PIN pinname="Phase" visible="1">
    </PIN>
+   <PIN pinname="Pause" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK dstnodeid="45" dstpinname="Input" srcnodeid="44" srcpinname="Output">
-   </LINK>
-   <LINK srcnodeid="45" srcpinname="Output" dstnodeid="43" dstpinname="Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="5535" top="4680" width="795" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="5535" top="4680" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.5">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.36">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -406,52 +404,6 @@
    </NODE>
    <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Phase">
    </LINK>
-   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="50">
-   <BOUNDS type="Node" left="1455" top="3150" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Y" visible="1">
-   </PIN>
-   <PIN pinname="XY" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="51">
-   <BOUNDS type="Node" left="1440" top="1395" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="1440" top="1395" width="795" height="480">
-   </BOUNDS>
-   <PIN pinname="Rows" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="2" values="0,1">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0|">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="51" srcpinname="Y Output Value" dstnodeid="50" dstpinname="X">
-   </LINK>
-   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="52">
-   <BOUNDS type="Node" left="1995" top="2250" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="1995" top="2250" width="795" height="480">
-   </BOUNDS>
-   <PIN pinname="Rows" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="2" values="0,1">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0|">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="50" dstpinname="Y">
-   </LINK>
    <LINK srcnodeid="20" srcpinname="Output" dstnodeid="12" dstpinname="DataXY">
    </LINK>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="53">
@@ -461,7 +413,7 @@
    </BOUNDS>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="2" values="0,0.5">
+   <PIN pinname="Y Input Value" slicecount="2" values="0.63,0.33">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="2">
    </PIN>
@@ -470,6 +422,34 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="43" dstpinname="Hue">
+   <LINK srcnodeid="53" srcpinname="Y Output Value" dstnodeid="43" dstpinname="Hue">
+   </LINK>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="54">
+   <BOUNDS type="Node" left="8835" top="1560" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8835" top="1560" width="795" height="240">
+   </BOUNDS>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="55">
+   <BOUNDS type="Node" left="8475" top="2535" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8475" top="2535" width="795" height="240">
+   </BOUNDS>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="Wave (3d)" filename="%VVVV%\addonpack\lib\nodes\plugins\Wave3d.dll" nodename="Wave (3d)" componentmode="Hidden" id="56">
+   <BOUNDS type="Node" left="8235" top="5070" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Layer" dstnodeid="2" dstpinname="Layer">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Output" dstnodeid="43" dstpinname="Value">
    </LINK>
    </PATCH>

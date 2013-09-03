@@ -121,7 +121,8 @@ float4 PS(float2 TexC: TEXCOORD0): COLOR
     p_1n = p_1n + toScalar_02( tex2D(samWave1, float2(TexC.x, TexC.y+ry)));
     p_1n = p_1n / 4;
 
-    float p = (p_1 + _Decay * (p_1 - p_2)) + Attack * (p_1n - p_1);
+    //float p = (p_1 + _Decay * (p_1 - p_2)) + Attack * (p_1n - p_1);
+	float p = p_1 + (p_1n - p_1);
     
     return toColor_02(p);
 }

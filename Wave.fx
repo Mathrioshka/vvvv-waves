@@ -79,7 +79,16 @@ void MainCS( uint3 DTid : SV_DispatchThreadID )
 	{
 		float dist = distance(float2(x, y), PointXY[i]);
 		
-		hsv = dist <= 0.01 ? PointHSV[i] : hsv * 0.9999;
+		//hsv = dist <= 0.01 ? PointHSV[i] : hsv * 0.999;
+		if(dist <= 0.01)
+		{
+			hsv = PointHSV[i];
+		}
+		else
+		{
+			hsv = float3(hsv.x, hsv.y, hsv.z * 0.999);
+		}
+		
 	}
 	
 	float3 a = SampleData(pixelPoint, float2(-1, 0));

@@ -7,6 +7,8 @@ int2 Size;
 float Attack = 0.5;
 float Decay = 0.95;
 
+int ElementsCount;
+
 struct WaveData
 {
 	float4 hsv;
@@ -63,6 +65,8 @@ float4 RGBtoHSV(in float3 RGB)
 [numthreads(64, 1, 1)]
 void MainCS( uint3 DTid : SV_DispatchThreadID )
 {	
+	if(DTid.x >= ElementsCount) return;
+	
 	//Current pixel XY
 	float x = DTid.x % Size.x;
 	float y = floor(DTid.x / Size.x);
